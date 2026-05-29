@@ -1,47 +1,54 @@
-import { useDispatch } from "react-redux";
-import { addItem } from "../../app/slice.js";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem } from "../../app/cartSlice.js";
+import { useEffect } from "react";
+import { fetchProducts } from "../../app/productSlice.js";
 
 function Body() {
     const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchProducts());
+    }, [dispatch]);
 
-    const products = [
-        {
-            id: 1,
-            name: "Headphones",
-            price: 59,
-            image: "https://picsum.photos/300?1",
-        },
-        {
-            id: 2,
-            name: "Smart Watch",
-            price: 99,
-            image: "https://picsum.photos/300?2",
-        },
-        {
-            id: 3,
-            name: "Laptop",
-            price: 799,
-            image: "https://picsum.photos/300?3",
-        },
-        {
-            id: 4,
-            name: "Gaming Mouse",
-            price: 49,
-            image: "https://picsum.photos/300?4",
-        },
-        {
-            id: 5,
-            name: "Keyboard",
-            price: 69,
-            image: "https://picsum.photos/300?5",
-        },
-        {
-            id: 6,
-            name: "Bluetooth Speaker",
-            price: 39,
-            image: "https://picsum.photos/300?6",
-        },
-    ];
+    const products = useSelector((state) => state.products.items);
+
+    // const products = [
+    //     {
+    //         id: 1,
+    //         name: "Headphones",
+    //         price: 59,
+    //         image: "https://picsum.photos/300?1",
+    //     },
+    //     {
+    //         id: 2,
+    //         name: "Smart Watch",
+    //         price: 99,
+    //         image: "https://picsum.photos/300?2",
+    //     },
+    //     {
+    //         id: 3,
+    //         name: "Laptop",
+    //         price: 799,
+    //         image: "https://picsum.photos/300?3",
+    //     },
+    //     {
+    //         id: 4,
+    //         name: "Gaming Mouse",
+    //         price: 49,
+    //         image: "https://picsum.photos/300?4",
+    //     },
+    //     {
+    //         id: 5,
+    //         name: "Keyboard",
+    //         price: 69,
+    //         image: "https://picsum.photos/300?5",
+    //     },
+    //     {
+    //         id: 6,
+    //         name: "Bluetooth Speaker",
+    //         price: 39,
+    //         image: "https://picsum.photos/300?6",
+    //     },
+    // ];
 
     return (
         <div className="min-h-full bg-gray-100 p-10">
@@ -63,8 +70,8 @@ function Body() {
 
                         {/* IMAGE */}
                         <img
-                            src={product.image}
-                            alt={product.name}
+                            src={product.images?.[0] || ""}
+                            alt={product.title}
                             className="w-full h-62.5 object-cover"
                         />
 
@@ -72,7 +79,7 @@ function Body() {
                         <div className="p-5">
 
                             <h2 className="text-2xl font-bold text-gray-800">
-                                {product.name}
+                                {product.title}
                             </h2>
 
                             <p className="text-gray-500 mt-2">

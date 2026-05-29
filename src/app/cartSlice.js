@@ -21,7 +21,7 @@ const checkoutAction = (state) => {
     state.products.forEach((product) => {
         totalPrice += product.price * product.quantity;
     });
-    alert(`Total Price: $${totalPrice}`);
+    alert(`Total Price: $${Math.round(totalPrice)}`);
     state.count = 0;
     state.products = [];
 }

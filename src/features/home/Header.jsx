@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ShoppingCart } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";
-import { checkout } from "../../app/slice.js";
+import { checkout } from "../../app/cartSlice.js";
 
 
 function Home() {
@@ -9,8 +9,6 @@ function Home() {
     const count = useSelector((state) => state.cart.count);
     const products = useSelector((state) => state.cart.products);
     const dispatch = useDispatch();
-    console.log(count);
-    console.log(products);
 
     return (
         <>
@@ -82,14 +80,14 @@ function Home() {
                                         <div key={product.id} className="flex items-center gap-3 border-b pb-3 mb-3">
 
                                             <img
-                                                src={product.image}
+                                                src={product.images?.[0] || ""}
                                                 alt=""
                                                 className="w-16 h-16 rounded-lg object-cover"
                                             />
 
                                             <div className="flex-1">
                                                 <h3 className="font-semibold">
-                                                    {product.name}
+                                                    {product.title}
                                                 </h3>
 
                                                 <p className="text-gray-500 text-sm">
